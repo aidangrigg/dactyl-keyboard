@@ -123,19 +123,17 @@
 (def row-radius (+ (/ (/ (+ mount-height 1/2) 2)
                       (Math/sin (/ α 2)))
                    cap-top-height))
-(def column-radius (+ (/ (/ (+ mount-width 2.0) 2)
-                         (Math/sin (/ β 2)))
-                      cap-top-height))
+(def column-radius (+ (/ (/ (+ mount-width 2.0) 2) (Math/sin (/ β 2))) cap-top-height))
 
 (defn key-place [column row shape]
   (let [row-placed-shape (->> shape
                               (translate [0 0 (- row-radius)])
                               (rotate (* α (- 2 row)) [1 0 0])
                               (translate [0 0 row-radius]))
-        column-offset (cond
-                        (= column 2) [0 2.82 -3.0] ;;was moved -4.5
-                        (>= column 4) [0 -5.8 5.64]
-                        :else [0 0 0])
+        column-offset [0 0 0]
+                        ;; (cond (= column 2) [0 2.82 -3.0] ;;was moved -4.5
+                        ;; (>= column 4) [0 -5.8 5.64]
+                        ;; :else [0 0 0])
         column-angle (* β (- 2 column))
         placed-shape (->> row-placed-shape
                           (translate [0 0 (- column-radius)])
@@ -466,9 +464,9 @@
               (hull (place x 4 wall-sphere-top-front)
                     (place (+ x step) 4 wall-sphere-top-front)
                     (place 0.7 4 wall-sphere-bottom-front))))
-     (top-cover 0.5 1.7 3.6 4)
-     (top-cover 1.59 2.41 3.35 4) ;; was 3.32
-     (top-cover 2.39 3.41 3.6 4)
+     ;; (top-cover 0.5 1.7 3.6 4)
+     ;; (top-cover 1.59 2.41 3.35 4) ;; was 3.32
+     ;; (top-cover 2.39 3.41 3.6 4)
      (apply union
             (for [x (range 2 5)]
               (union
@@ -511,9 +509,9 @@
                     (place (+ x step) back-y wall-sphere-top-back)
                     (place x back-y wall-sphere-bottom-back)
                     (place (+ x step) back-y wall-sphere-bottom-back))))
-     (front-top-cover 1.56 2.44 back-y 0.1)
-     (front-top-cover 3.56 4.44 back-y 0.13)
-     (front-top-cover 4.3 right-wall-column back-y 0.13)
+     ;; (front-top-cover 1.56 2.44 back-y 0.1)
+     ;; (front-top-cover 3.56 4.44 back-y 0.13)
+     ;; (front-top-cover 4.3 right-wall-column back-y 0.13)
 
 
      (hull (place left-wall-column 0 (translate [1 -1 1] wall-sphere-bottom-back))
